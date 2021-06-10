@@ -1,3 +1,6 @@
+
+[![Godoc](http://img.shields.io/badge/godoc-reference-blue.svg?style=flat)](https://godoc.org/github.com/maverickames/omeh) [![license](http://img.shields.io/badge/license-MIT-red.svg?style=flat)](https://github.com/maverickames/omeh/blob/master/LICENSE)
+
 # omeh - One more error handler
 Handle and return unique errors that can be searched quickly to find the exact error. 
 
@@ -15,5 +18,3 @@ the error occured.
   -- RequestDetail: /broken
   -- ErrorCode: 5000732679545666175
 ```
-
-[![Godoc](http://img.shields.io/badge/godoc-reference-blue.svg?style=flat)](https://godoc.org/github.com/maverickames/omeh) [![license](http://img.shields.io/badge/license-MIT-red.svg?style=flat)](https://github.com/maverickames/omeh/blob/master/LICENSE)
