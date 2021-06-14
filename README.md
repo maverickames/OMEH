@@ -12,7 +12,7 @@ the error occured.
 ```
 [Example App] ErrorHandler: 2021/06/09 19:47:07 
   -- Function: main.(*App).brokenRoute
-  -- SourceFile: /Users/matthewames/Development/go/omeh/example/routes.go
+  -- SourceFile: /Users/user/Development/go/omeh/example/routes.go
   -- LineNumber: 36
   -- ErrorDetails: did something and it broke
   -- RequestDetail: /broken
