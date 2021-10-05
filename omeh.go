@@ -16,24 +16,26 @@ type handleErrorLog func(*ErrResponse)
 
 type respondToError func(ErrorHandlerdesc) http.HandlerFunc
 
-var StatusBadRequest = &ErrResponse{HTTPStatusCode: 400, StatusText: "Status Bad Request"}
+var StatusBadRequest = &ErrResponse{StatusCode: 400, StatusText: "Status Bad Request"}
 
-var StatusNotFound = &ErrResponse{HTTPStatusCode: 404, StatusText: "Status Not Found"}
+var StatusNotFound = &ErrResponse{StatusCode: 404, StatusText: "Status Not Found"}
 
-var StatusInternalServerError = &ErrResponse{HTTPStatusCode: 500, StatusText: "Status Internal Server Error"}
+var StatusInternalServerError = &ErrResponse{StatusCode: 500, StatusText: "Status Internal Server Error"}
 
-var YouDoneMessedUpAARon = &ErrResponse{HTTPStatusCode: 500, StatusText: "You done messed up, A-A-Ron"}
+var YouDoneMessedUpAARon = &ErrResponse{StatusCode: 500, StatusText: "You done messed up, A-A-Ron"}
 
-var NonUIError = &ErrResponse{HTTPStatusCode: 0, StatusText: "Server error!"}
+var NonUIError = &ErrResponse{StatusCode: 0, StatusText: "Server error!"}
 
 type ErrResponse struct {
-	Err            error   `json:"-"`
-	HTTPStatusCode int     `json:"-"`
-	RequestDetail  string  `json:"-"`
-	FuncPC         uintptr `json:"-"`
-	FuncFN         string  `json:"-"`
-	FuncLine       int     `json:"-"`
+	// Internal Only
+	Err           error   `json:"-"`
+	RequestDetail string  `json:"-"`
+	FuncPC        uintptr `json:"-"`
+	FuncFN        string  `json:"-"`
+	FuncLine      int     `json:"-"`
 
+	// Public
+	StatusCode int    `json:"-"`
 	StatusText string `json:"status"`
 	AppCode    int64  `json:"code,omitempty"`
 }
@@ -79,7 +81,7 @@ func (e *ErrManager) ProcessErrorHTTP(h ErrorHandlerdesc) http.HandlerFunc {
 			e.LogError(ErrResponse)
 		}
 
-		w.WriteHeader(ErrResponse.HTTPStatusCode)
+		w.WriteHeader(ErrResponse.StatusCode)
 		w.Write([]byte(b))
 	})
 }
@@ -111,8 +113,8 @@ func (e *ErrManager) ReturnError(err error, er *ErrResponse, requestDetails stri
 	errResponse.FuncLine = line
 
 	errResponse.Err = err
-	if errResponse.HTTPStatusCode == 0 {
-		errResponse.HTTPStatusCode = 400
+	if errResponse.StatusCode == 0 {
+		errResponse.StatusCode = 400
 	}
 
 	if requestDetails == "" {
